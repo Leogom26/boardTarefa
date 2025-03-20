@@ -1,3 +1,12 @@
-export function Textarea(){
-    return <textarea name="" id=""></textarea>
+import { HTMLProps } from "react"
+import styles from "./styles.module.css"
+
+export function Textarea({...rest}: HTMLProps<HTMLTextAreaElement>){
+    return <textarea 
+    className={styles.textarea} 
+    {...rest}
+    name="" 
+    id="">
+
+    </textarea>
 }
