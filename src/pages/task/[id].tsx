@@ -54,7 +54,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     taskId: id,
   };
 
-  console.log(task);
+  // console.log(task);
 
   return {
     props: {},
