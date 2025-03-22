@@ -27,6 +27,14 @@ interface TaskProps {
   };
 }
 
+interface CommentProps {
+  id: string;
+  comment: string;
+  taskId: string;
+  user: string;
+  name: string;
+}
+
 export default function Task({ item }: TaskProps) {
   
   const { data: session } = useSession();
@@ -98,6 +106,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const q = query(collection(db, "comments"), where("taskId", "==", id))
   const snaphotComments = await getDocs(q)
 
+  let allComments = [];
 
   const snapshot = await getDoc(docRef);
   
