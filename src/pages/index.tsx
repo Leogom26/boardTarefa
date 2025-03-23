@@ -21,7 +21,7 @@ export default function Home({ posts, comments }: HomeProps) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Tarefas+ | Organize suas tarefas de forma fácil</title>
+        <title>Leogom App+ | Organizador de tarefas</title>
       </Head>
 
       <main className={styles.main}>
@@ -34,8 +34,8 @@ export default function Home({ posts, comments }: HomeProps) {
           />
         </div>
         <h1 className={styles.title}>
-          Sistema feito para você organizar <br />
-          seus estudos e tarefas
+          Sistema feito para organizar <br />
+          tarefas na Azul cargo
         </h1>
 
         <div className={styles.infoContent}>
