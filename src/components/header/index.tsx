@@ -11,7 +11,7 @@ export function Header() {
         <nav className={styles.nav}>
           <Link href="/">
             <h1 className={styles.logo}>
-              Leogom App<span>+</span>
+              Leo App<span>+</span>
             </h1>
           </Link>
           {session?.user && (
