@@ -11,12 +11,12 @@ export function Header() {
         <nav className={styles.nav}>
           <Link href="/">
             <h1 className={styles.logo}>
-              Tarefas<span>+</span>
+              Leogom App<span>+</span>
             </h1>
           </Link>
           {session?.user && (
             <Link href="/dashboard" className={styles.link}>
-              Meu Painel
+              Painel
             </Link>
           )}
         </nav>
