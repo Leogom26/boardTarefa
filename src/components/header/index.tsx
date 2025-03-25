@@ -7,7 +7,14 @@ export function Header() {
   const { data: session, status } = useSession();
 
   const router = useRouter();
-  const isAdminPage = router.pathname !== "/admin";
+  const isOnAdminPage = router.pathname === "/admin"; // Corrigir: verificar se a página é "/admin"
+
+  // Lista de e-mails permitidos para acesso à página admin
+  const allowedAdminEmails = [
+    "leogomdesenvolvimento@gmail.com",
+    "azulcargov@gmail.com",
+    "leogomecommerce@gmail.com"
+  ];
 
   return (
     <header className={styles.header}>
@@ -24,7 +31,8 @@ export function Header() {
             </Link>
           )}
 
-          { isAdminPage && session?.user && (
+          {/* Verificar se o usuário está na lista de e-mails permitidos para exibir o link "Admin" */}
+          {!isOnAdminPage && session?.user && allowedAdminEmails.includes(session?.user.email) && (
             <Link href="/admin" className={styles.link}>
               Admin
             </Link>
