@@ -22,6 +22,10 @@ import {
 } from "firebase/firestore";
 import Link from "next/link";
 
+// biblioteca de Toast "mensagens"
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 interface HomeProps {
   user: {
     email: string;
@@ -102,10 +106,14 @@ export default function Dashboard({ user }: HomeProps) {
     alert("URL Copiada com sucesso!");
   }
 
-  async function handleDeleteTask(id: string) {
+  const handleDeleteTask = async (id: string) => {
     const docRef = doc(db, "tarefas", id);
+
     await deleteDoc(docRef);
-  }
+    
+    // Exibindo o Toast de sucesso
+    toast.success('Tarefa deletada com sucesso!');
+  };
 
   return (
     <div className={styles.container}>
@@ -133,7 +141,7 @@ export default function Dashboard({ user }: HomeProps) {
                   checked={publicTask}
                   onChange={handleChangePublic}
                 />
-                <label>Deixar tarefa publica?</label>
+                <label>Deixar tarefa pública?</label>
               </div>
 
               <button className={styles.button} type="submit">
@@ -150,7 +158,7 @@ export default function Dashboard({ user }: HomeProps) {
             <article key={item.id} className={styles.task}>
               {item.public && (
                 <div className={styles.tagContainer}>
-                  <label className={styles.tag}>PUBLICO</label>
+                  <label className={styles.tag}>PÚBLICO</label>
                   <button
                     className={styles.shareButton}
                     onClick={() => handleShare(item.id)}
@@ -180,16 +188,16 @@ export default function Dashboard({ user }: HomeProps) {
           ))}
         </section>
       </main>
+
+      <ToastContainer />
     </div>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
-  // console.log(session);
 
   if (!session?.user) {
-    // Se nao tem usuario vamos redirecionar para  /
     return {
       redirect: {
         destination: "/",
