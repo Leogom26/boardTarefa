@@ -103,16 +103,20 @@ export default function Admin({ user }: HomeProps) {
     alert("URL Copiada com sucesso!");
   }
 
-  async function handleDeleteTask(id: string) {
-    const docRef = doc(db, "tarefas", id);
-    try {
-      await deleteDoc(docRef);
-      alert("Tarefa deletada com sucesso!");
-    } catch (err) {
-      console.log("Erro ao deletar tarefa:", err);
-      alert("Erro ao deletar tarefa.");
+  // Função de confirmação antes de deletar a tarefa
+  const handleDeleteTask = async (id: string) => {
+    const isConfirmed = window.confirm("Você tem certeza que deseja deletar a tarefa?");
+    if (isConfirmed) {
+      const docRef = doc(db, "tarefas", id);
+      try {
+        await deleteDoc(docRef);
+        alert("Tarefa deletada com sucesso!");
+      } catch (err) {
+        console.log("Erro ao deletar tarefa:", err);
+        alert("Erro ao deletar tarefa.");
+      }
     }
-  }
+  };
 
   return (
     <div className={styles.container}>
@@ -181,7 +185,7 @@ export default function Admin({ user }: HomeProps) {
 
                   <button
                     className={styles.trashButton}
-                    onClick={() => handleDeleteTask(item.id)}
+                    onClick={() => handleDeleteTask(item.id)} // Chama a função de confirmação antes de deletar
                   >
                     <FaTrash size={24} color="#ea3140" />
                   </button>
@@ -206,13 +210,13 @@ export default function Admin({ user }: HomeProps) {
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
 
-  // Verifica se o usuário está autenticado e se o e-mail é o correto
+  // Verifica se o usuário está autenticado e se o e-mail é o dele
   if (!session?.user || 
     (session.user.email !== "leogomdesenvolvimento@gmail.com" && session.user.email !== "azulcargov@gmail.com" && session.user.email !== "leogomecommerce@gmail.com")) {
-    // Redireciona para a página de erro ou outra página caso o usuário não tenha permissão
+    // Redireciona para a página a página home caso o usuário não tenha permissão
     return {
       redirect: {
-        destination: "/", // Rota de erro ou outra página desejada
+        destination: "/", // Rota de erro 
         permanent: false,
       },
     };
