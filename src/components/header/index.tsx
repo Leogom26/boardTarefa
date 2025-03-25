@@ -11,12 +11,18 @@ export function Header() {
         <nav className={styles.nav}>
           <Link href="/">
             <h1 className={styles.logo}>
-              Leo App<span>+</span>
+              Leo App
             </h1>
           </Link>
           {session?.user && (
             <Link href="/dashboard" className={styles.link}>
               Painel
+            </Link>
+          )}
+
+          {session?.user && (
+            <Link href="/admin" className={styles.link}>
+              Admin
             </Link>
           )}
         </nav>
