@@ -1,9 +1,13 @@
 import styles from "./styles.module.css";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/router"; 
 
 export function Header() {
   const { data: session, status } = useSession();
+
+  const router = useRouter();
+  const isAdminPage = router.pathname !== "/admin";
 
   return (
     <header className={styles.header}>
@@ -20,7 +24,7 @@ export function Header() {
             </Link>
           )}
 
-          {session?.user && (
+          { isAdminPage && session?.user && (
             <Link href="/admin" className={styles.link}>
               Admin
             </Link>
